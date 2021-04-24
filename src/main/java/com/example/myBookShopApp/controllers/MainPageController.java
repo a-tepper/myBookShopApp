@@ -22,4 +22,15 @@ public class MainPageController {
         model.addAttribute("bookData", bookService.getBooksData());
         return "index";
     }
+
+    @GetMapping("/genres")
+    public String genres(Model model){
+        return "genres";
+    }
+
+    @GetMapping("/authors")
+    public String authors(Model model){
+        model.addAttribute("authorsByLetter", bookService.getAuthorsByFirstLetter());
+        return "authors";
+    }
 }
