@@ -1,8 +1,8 @@
 insert into authors (name) values ('Абгарян Наринэ');
 insert into authors (name) values ('Байбаков Иван');
 insert into authors (name) values ('Байер Уильям');
-insert into authors (name) values ('Бакиров Анвар');
-insert into authors (name) values ('Бакман Фредрик');
+insert into authors (name) values ('Вайн Барбара');
+insert into authors (name) values ('Габсер Стивен');
 insert into books (author, title, priceOld, price) values (1, 'exploit real-time e-commerce', '$203.23', '$43.37');
 insert into books (author, title, priceOld, price) values (1, 'utilize real-time interfaces', '$260.31', '$35.96');
 insert into books (author, title, priceOld, price) values (1, 'extend strategic e-services', '$272.00', '$151.04');
