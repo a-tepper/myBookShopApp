@@ -27,4 +27,9 @@ public class MainPageController {
     public String genres(Model model){
         return "genres";
     }
+
+    @GetMapping("/authors")
+    public String authors(Model model){
+        return "authors";
+    }
 }
