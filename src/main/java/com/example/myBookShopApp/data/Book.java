@@ -1,11 +1,31 @@
 package com.example.myBookShopApp.data;
 
 public class Book {
-    Integer id;
-    String author;
-    String title;
-    String priceOld;
-    String price;
+
+    private Integer id;
+    private String author;
+    private String title;
+    private String priceOld;
+    private String price;
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", author='" + author + '\'' +
+                ", title='" + title + '\'' +
+                ", priceOld='" + priceOld + '\'' +
+                ", price='" + price + '\'' +
+                '}';
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getAuthor() {
         return author;
@@ -37,24 +57,5 @@ public class Book {
 
     public void setPrice(String price) {
         this.price = price;
-    }
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", author='" + author + '\'' +
-                ", title='" + title + '\'' +
-                ", priceOld='" + priceOld + '\'' +
-                ", price='" + price + '\'' +
-                '}';
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 }
