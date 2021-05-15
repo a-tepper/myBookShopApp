@@ -37,7 +37,8 @@ public class MainPageController {
     public List<Book> recentBooks(){ return bookService.getBooksData(); }
 
     @GetMapping("/")
-    public String mainPage(){
+    public String mainPage(Model model){
+        model.addAttribute("activeItem", "main");
         return "index";
     }
 }

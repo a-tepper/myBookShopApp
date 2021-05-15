@@ -5,6 +5,7 @@ import com.example.myBookShopApp.data.BookService;
 import com.example.myBookShopApp.data.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -21,7 +22,8 @@ public class LoginController {
     }
 
     @GetMapping("/signin")
-    public String recentPage(){
+    public String recentPage(Model model){
+        model.addAttribute("activeItem", "signin");
         return "/signin";
     }
 }
