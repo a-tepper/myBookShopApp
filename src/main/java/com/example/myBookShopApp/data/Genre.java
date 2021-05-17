@@ -5,19 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "authors")
-public class Author {
+@Table(name = "genre")
+public class Genre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String photo;
+    @ManyToOne
+    @JoinColumn(name = "parent_id", referencedColumnName = "id")
+    private ParentGenre parent;
     private String slug;
     private String name;
-    private String description;
-
-    @OneToMany(mappedBy = "author")
-    private List<Book> bookList = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -27,12 +25,12 @@ public class Author {
         this.id = id;
     }
 
-    public String getPhoto() {
-        return photo;
+    public ParentGenre getParent() {
+        return parent;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setParent(ParentGenre parent) {
+        this.parent = parent;
     }
 
     public String getSlug() {
@@ -51,24 +49,13 @@ public class Author {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<Book> getBookList() {
-        return bookList;
-    }
-
-    public void setBookList(List<Book> bookList) {
-        this.bookList = bookList;
-    }
-
     @Override
     public String toString() {
-        return name;
+        return "Genre{" +
+                "id=" + id +
+                ", parent=" + parent +
+                ", slug='" + slug + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
