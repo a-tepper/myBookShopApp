@@ -1,4 +1,4 @@
-package com.example.MyBookShopApp.data;
+package com.example.myBookShopApp.data;
 
 import javax.persistence.*;
 import java.util.ArrayList;

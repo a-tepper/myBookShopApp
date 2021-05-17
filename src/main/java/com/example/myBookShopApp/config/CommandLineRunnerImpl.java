@@ -1,9 +1,9 @@
-package com.example.MyBookShopApp.config;
+package com.example.myBookShopApp.config;
 
-import com.example.MyBookShopApp.data.BookRepository;
-import com.example.MyBookShopApp.data.TestEntity;
-import com.example.MyBookShopApp.data.TestEntityCrudRepository;
-import com.example.MyBookShopApp.data.TestEntityDao;
+import com.example.myBookShopApp.data.BookRepository;
+import com.example.myBookShopApp.data.TestEntity;
+import com.example.myBookShopApp.data.TestEntityCrudRepository;
+import com.example.myBookShopApp.data.TestEntityDao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

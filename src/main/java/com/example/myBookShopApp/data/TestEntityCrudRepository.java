@@ -1,4 +1,4 @@
-package com.example.MyBookShopApp.data;
+package com.example.myBookShopApp.data;
 
 import org.springframework.data.repository.CrudRepository;
 

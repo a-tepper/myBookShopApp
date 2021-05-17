@@ -1,7 +1,7 @@
-package com.example.MyBookShopApp.controllers;
+package com.example.myBookShopApp.controllers;
 
-import com.example.MyBookShopApp.data.Book;
-import com.example.MyBookShopApp.data.BookService;
+import com.example.myBookShopApp.data.Book;
+import com.example.myBookShopApp.data.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
