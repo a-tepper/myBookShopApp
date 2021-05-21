@@ -5,10 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface BookRepository extends JpaRepository<Book, Integer> {
+public interface BookReviewRepository extends JpaRepository<BookReview, Integer> {
 
-    List<Book> findBooksByAuthor_Name(String name);
-
-    @Query("from Book")
-    List<Book> customFindAllBooks();
 }
