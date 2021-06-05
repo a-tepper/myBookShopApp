@@ -73,6 +73,15 @@ public class MainPageController {
         return new BooksPageDto(bookService.getPageOfPopularBooks(offset, limit).getContent());
     }
 
+    @GetMapping("/books/author/{authorId}")
+    @ResponseBody
+    public BooksPageDto getAuthorBooks(@RequestParam("offset") Integer offset,
+                                       @RequestParam("limit") Integer limit,
+                                       @PathVariable(value = "authorId", required = true) Integer authorId) {
+        return new BooksPageDto(bookService.getPageOfAuthorBooks(offset, limit, authorId).getContent());
+    }
+
+
     @GetMapping(value = {"/search", "/search/{searchWord}"})
     public String getSearchResults(@PathVariable(value = "searchWord", required = false) SearchWordDto searchWordDto,
                                    Model model) {

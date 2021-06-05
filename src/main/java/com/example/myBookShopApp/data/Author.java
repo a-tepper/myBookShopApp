@@ -22,6 +22,39 @@ public class Author {
     @ApiModelProperty(value = "last name of author",example = "Blaskovits", position = 3)
     private String lastName;
 
+    @ApiModelProperty(value = "short biography of author",example = "Was born in 1975.", position = 4)
+    @Column(name = "short_bio")
+    private String shortBio;
+
+    public String getShortBio() {
+        return shortBio;
+    }
+
+    public void setShortBio(String shortBio) {
+        this.shortBio = shortBio;
+    }
+    
+    @ApiModelProperty(value = "biography of author",example = "Was born in 1975.", position = 4)
+    private String bio;
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    private String photo;
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
     @OneToMany(mappedBy = "author")
     @JsonIgnore
     private List<Book> bookList = new ArrayList<>();

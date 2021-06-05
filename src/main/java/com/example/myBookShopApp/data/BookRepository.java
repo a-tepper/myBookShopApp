@@ -36,4 +36,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     Page<Book> findByPubDateAfter(Date monthAgo, Pageable nextPage);
 
     Page<Book> findByIsBestsellerIs(int i, Pageable nextPage);
+
+    Page<Book> findBooksByAuthor_Id(Object authorId, Pageable nextPage);
 }
