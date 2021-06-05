@@ -29,7 +29,7 @@ public class MainPageController {
 
     @ModelAttribute("recentBooks")
     public List<Book> recentBooks() {
-        return bookService.getPageOfRecentBooks(0, 6).getContent();
+        return bookService.getPageOfRecentBooks(0, 6, null, null).getContent();
     }
 
     @ModelAttribute("popularBooks")
@@ -62,8 +62,10 @@ public class MainPageController {
     @GetMapping("/books/recent")
     @ResponseBody
     public BooksPageDto getRecentBooksPage(@RequestParam("offset") Integer offset,
-                                                @RequestParam("limit") Integer limit) {
-        return new BooksPageDto(bookService.getPageOfRecentBooks(offset, limit).getContent());
+                                           @RequestParam("limit") Integer limit,
+                                           @RequestParam("from") String from,
+                                           @RequestParam("to") String to) {
+        return new BooksPageDto(bookService.getPageOfRecentBooks(offset, limit, from, to).getContent());
     }
 
     @GetMapping("/books/popular")
@@ -97,5 +99,10 @@ public class MainPageController {
                                           @RequestParam("limit") Integer limit,
                                           @PathVariable(value = "searchWord", required = false) SearchWordDto searchWordDto) {
         return new BooksPageDto(bookService.getPageOfSearchResultBooks(searchWordDto.getExample(), offset, limit).getContent());
+    }
+
+    @GetMapping("/recent")
+    public String recentPage() {
+        return "/books/recent";
     }
 }

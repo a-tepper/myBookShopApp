@@ -6,7 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -60,12 +60,17 @@ public class BookService {
         return bookRepository.findBookByTitleContaining(searchWord,nextPage);
     }
 
-    public Page<Book> getPageOfRecentBooks(Integer offset, Integer limit) {
+    public Page<Book> getPageOfRecentBooks(Integer offset, Integer limit, String fromStr, String toStr) {
         Pageable nextPage = PageRequest.of(offset,limit);
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.YEAR, -1);
-        Date yearAgo = cal.getTime();
-        return bookRepository.findByPubDateAfter(yearAgo, nextPage);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+        try {
+            Date from = formatter.parse(fromStr);
+            Date to = formatter.parse(toStr);
+            return bookRepository.findByPubDateBetweenOrderByPubDateDesc(from, to, nextPage);
+        }
+        catch(Exception e) {
+            return bookRepository.findByOrderByPubDateDesc(nextPage);
+        }
     }
 
     public Page<Book> getPageOfPopularBooks(Integer offset, Integer limit) {
