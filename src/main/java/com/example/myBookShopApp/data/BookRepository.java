@@ -33,7 +33,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
     Page<Book> findBookByTitleContaining(String bookTitle, Pageable nextPage);
 
-    Page<Book> findByIsBestsellerIs(int i, Pageable nextPage);
+    List<Book> findByIsBestsellerIs(int i);
 
     Page<Book> findBooksByAuthor_Id(Object authorId, Pageable nextPage);
 

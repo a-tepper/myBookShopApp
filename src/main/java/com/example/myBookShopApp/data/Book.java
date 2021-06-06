@@ -1,6 +1,5 @@
 package com.example.MyBookShopApp.data;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
@@ -8,6 +7,8 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "books")
@@ -53,6 +54,49 @@ public class Book {
     @JsonProperty("discount")
     @ApiModelProperty("discount value for book")
     private Double price;
+
+    @OneToMany(mappedBy = "book")
+    @JsonIgnore
+    private List<Purchasе> purchases = new ArrayList<>();
+
+    @OneToMany(mappedBy = "book")
+    @JsonIgnore
+    private List<Postponed> postponed = new ArrayList<>();
+
+    @OneToMany(mappedBy = "book")
+    @JsonIgnore
+    private List<Book2cart> cartList = new ArrayList<>();
+
+    public List<Book2cart> getCartList() {
+        return cartList;
+    }
+
+    public void setCartList(List<Book2cart> cartList) {
+        this.cartList = cartList;
+    }
+
+    public double getPopularity() {
+        int purchases = this.purchases.size();
+        int postponed = this.postponed.size();
+        int in_cart = this.cartList.size();
+        return purchases + 0.7*in_cart + 0.4*postponed;
+    }
+
+    public List<Purchasе> getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(List<Purchasе> purchases) {
+        this.purchases = purchases;
+    }
+
+    public List<Postponed> getPostponed() {
+        return postponed;
+    }
+
+    public void setPostponed(List<Postponed> postponed) {
+        this.postponed = postponed;
+    }
 
     public Date getPubDate() {
         return pubDate;

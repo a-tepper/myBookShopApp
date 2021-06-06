@@ -2,13 +2,16 @@ package com.example.MyBookShopApp.data;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService {
@@ -75,7 +78,9 @@ public class BookService {
 
     public Page<Book> getPageOfPopularBooks(Integer offset, Integer limit) {
         Pageable nextPage = PageRequest.of(offset,limit);
-        return bookRepository.findByIsBestsellerIs(1, nextPage);
+        List<Book> books = this.bookRepository.findByIsBestsellerIs(1).stream().sorted(Comparator.comparingDouble(Book::getPopularity).reversed())
+                .collect(Collectors.toList());
+        return new PageImpl<>(books.subList(limit*offset, limit*offset + limit), nextPage, books.size());
     }
 
     public Page<Book> getPageOfAuthorBooks(Integer offset, Integer limit, Object authorId) {

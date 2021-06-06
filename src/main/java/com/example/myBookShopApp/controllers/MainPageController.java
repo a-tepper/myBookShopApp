@@ -105,4 +105,9 @@ public class MainPageController {
     public String recentPage() {
         return "/books/recent";
     }
+
+    @GetMapping("/popular")
+    public String popularPage() {
+        return "/books/popular";
+    }
 }
