@@ -67,6 +67,11 @@ public class Book {
     @JsonIgnore
     private List<Book2cart> cartList = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "genre_id", referencedColumnName = "id")
+    @JsonIgnore
+    private Genre genre;
+
     public List<Book2cart> getCartList() {
         return cartList;
     }

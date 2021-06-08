@@ -11,16 +11,21 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
 public class BookService {
 
     private BookRepository bookRepository;
+    private GenreRepository genreRepository;
+    private ParentGenreRepository parentGenreRepository;
 
     @Autowired
-    public BookService(BookRepository bookRepository) {
+    public BookService(BookRepository bookRepository, GenreRepository genreRepository, ParentGenreRepository parentGenreRepository) {
         this.bookRepository = bookRepository;
+        this.genreRepository = genreRepository;
+        this.parentGenreRepository = parentGenreRepository;
     }
 
     public List<Book> getBooksData() {
@@ -83,8 +88,32 @@ public class BookService {
         return new PageImpl<>(books.subList(limit*offset, limit*offset + limit), nextPage, books.size());
     }
 
-    public Page<Book> getPageOfAuthorBooks(Integer offset, Integer limit, Object authorId) {
+    public Page<Book> getPageOfAuthorBooks(Integer offset, Integer limit, Integer authorId) {
         Pageable nextPage = PageRequest.of(offset, limit);
         return bookRepository.findBooksByAuthor_Id(authorId, nextPage);
+    }
+
+    public Page<Book> getPageOfGenreBooks(Integer offset, Integer limit, Integer genreId) {
+        Pageable nextPage = PageRequest.of(offset, limit);
+        return bookRepository.findByGenre_Id(genreId, nextPage);
+    }
+
+    public Map<ParentGenre, List<Genre>> getGenreMap() {
+        List<Genre> Genres = genreRepository.findAll();
+        return Genres.stream().collect(Collectors.groupingBy((Genre a) -> {return a.getParent();}));
+    }
+
+    public Page<Book> getPageOfParentGenreBooks(Integer offset, Integer limit, Integer id) {
+        Pageable nextPage = PageRequest.of(offset, limit);
+        List<Genre> genres = genreRepository.findByParent_Id(id);
+        return bookRepository.findByGenreIn(genres, nextPage);
+    }
+
+    public Genre getGenreById(Integer id) {
+        return genreRepository.findById(id).get();
+    }
+
+    public ParentGenre getParentGenreById(Integer id) {
+        return parentGenreRepository.findById(id).get();
     }
 }
