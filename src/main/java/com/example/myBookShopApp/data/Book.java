@@ -72,6 +72,19 @@ public class Book {
     @JsonIgnore
     private Genre genre;
 
+    @ManyToOne
+    @JoinColumn(name = "tag_id", referencedColumnName = "id")
+    @JsonIgnore
+    private Tag tag;
+
+    public Tag getTag() {
+        return tag;
+    }
+
+    public void setTag(Tag tag) {
+        this.tag = tag;
+    }
+
     public List<Book2cart> getCartList() {
         return cartList;
     }

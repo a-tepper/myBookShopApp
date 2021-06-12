@@ -20,12 +20,15 @@ public class BookService {
     private BookRepository bookRepository;
     private GenreRepository genreRepository;
     private ParentGenreRepository parentGenreRepository;
+    private TagRepository tagRepository;
 
     @Autowired
-    public BookService(BookRepository bookRepository, GenreRepository genreRepository, ParentGenreRepository parentGenreRepository) {
+    public BookService(BookRepository bookRepository, GenreRepository genreRepository,
+                       ParentGenreRepository parentGenreRepository, TagRepository tagRepository) {
         this.bookRepository = bookRepository;
         this.genreRepository = genreRepository;
         this.parentGenreRepository = parentGenreRepository;
+        this.tagRepository = tagRepository;
     }
 
     public List<Book> getBooksData() {
@@ -98,6 +101,11 @@ public class BookService {
         return bookRepository.findByGenre_Id(genreId, nextPage);
     }
 
+    public Page<Book> getPageOfTagBooks(Integer offset, Integer limit, Integer genreId) {
+        Pageable nextPage = PageRequest.of(offset, limit);
+        return bookRepository.findByTag_Id(genreId, nextPage);
+    }
+
     public Map<ParentGenre, List<Genre>> getGenreMap() {
         List<Genre> Genres = genreRepository.findAll();
         return Genres.stream().collect(Collectors.groupingBy((Genre a) -> {return a.getParent();}));
@@ -115,5 +123,13 @@ public class BookService {
 
     public ParentGenre getParentGenreById(Integer id) {
         return parentGenreRepository.findById(id).get();
+    }
+
+    public List<Tag> getAllTags() {
+        return tagRepository.findAll();
+    }
+
+    public Tag getTagById(Integer id) {
+        return tagRepository.findById(id).get();
     }
 }

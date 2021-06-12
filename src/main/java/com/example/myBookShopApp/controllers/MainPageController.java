@@ -50,6 +50,11 @@ public class MainPageController {
         return new ArrayList<>();
     }
 
+    @ModelAttribute("tags")
+    public List<Tag> tags() {
+        return bookService.getAllTags();
+    }
+
     @GetMapping("/")
     public String mainPage() {
         return "index";
@@ -102,6 +107,14 @@ public class MainPageController {
         return new BooksPageDto(bookService.getPageOfParentGenreBooks(offset, limit, id).getContent());
     }
 
+    @GetMapping("/books/tag/{id}")
+    @ResponseBody
+    public BooksPageDto getTagBooks(@RequestParam("offset") Integer offset,
+                                      @RequestParam("limit") Integer limit,
+                                      @PathVariable(value = "id", required = true) Integer id) {
+        return new BooksPageDto(bookService.getPageOfTagBooks(offset, limit, id).getContent());
+    }
+
     @GetMapping("/genre/{id}")
     public String genrePage(Model model, @PathVariable("id") Integer id){
         List<Book> books = bookService.getPageOfGenreBooks(0, 6, id).getContent();
@@ -118,6 +131,14 @@ public class MainPageController {
         model.addAttribute("genre", bookService.getParentGenreById(id));
         model.addAttribute("load", "parent_genre");
         return "/genres/slug";
+    }
+
+    @GetMapping("/tag/{id}")
+    public String tagPage(Model model, @PathVariable("id") Integer id){
+        List<Book> books = bookService.getPageOfTagBooks(0, 6, id).getContent();
+        model.addAttribute("tagBooks", books);
+        model.addAttribute("tag", bookService.getTagById(id));
+        return "/tags/index";
     }
 
     @GetMapping(value = {"/search", "/search/{searchWord}"})

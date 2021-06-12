@@ -62,8 +62,7 @@
         </header>
         <div class="Section">
           <div class="Cards Cards_refresh">
-            <div class="Card" th:each="book : ${genreBooks}"
-                 data-loadoffset="0" data-loadlimit="20" th:attr="data-load=${load}">
+            <div class="Card" th:each="book : ${genreBooks}">
               <div class="Card-picture"><a href="#"><img th:src="${book.image}" alt="card.jpg"/></a>
               </div>
               <div class="Card-content">
